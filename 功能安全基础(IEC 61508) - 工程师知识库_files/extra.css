@@ -1,0 +1,61 @@
+/* 工程师知识库 - 自定义样式 */
+
+/* 改善中文字体渲染 */
+body {
+  font-family: "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 代码块样式优化 */
+code {
+  font-family: "Roboto Mono", "Courier New", monospace;
+}
+
+/* 改善表格样式 */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.2rem;
+}
+
+/* 改善引用块样式 */
+.md-typeset blockquote {
+  border-left: 0.2rem solid var(--md-accent-fg-color);
+  padding-left: 1rem;
+}
+
+/* 改善警告框样式 */
+.md-typeset .admonition {
+  border-radius: 0.2rem;
+}
+
+/* 自定义链接颜色 */
+.md-typeset a {
+  color: var(--md-accent-fg-color);
+}
+
+.md-typeset a:hover {
+  color: var(--md-accent-fg-color--light);
+}
+
+/* 改善搜索结果高亮 */
+.md-search-result__article--document mark {
+  background-color: var(--md-accent-fg-color--transparent);
+  color: var(--md-accent-fg-color);
+}
+
+/* 响应式图片 */
+.md-typeset img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.2rem;
+}
+
+/* 改善代码复制按钮 */
+.md-clipboard {
+  color: var(--md-default-fg-color--light);
+}
+
+.md-clipboard:hover {
+  color: var(--md-accent-fg-color);
+}

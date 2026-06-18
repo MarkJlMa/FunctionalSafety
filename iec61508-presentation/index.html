@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IEC 61508 功能安全标准入门指南</title>
+<link rel="stylesheet" href="C:/Users/stone/.claude/skills/html-ppt-skill-main/assets/fonts.css">
+<link rel="stylesheet" href="C:/Users/stone/.claude/skills/html-ppt-skill-main/assets/base.css">
+<link rel="stylesheet" href="C:/Users/stone/.claude/skills/html-ppt-skill-main/assets/animations/animations.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="tpl-iec61508">
+<div class="deck">
+
+<!-- Slide 1: Cover -->
+<section class="slide center tc" data-title="封面">
+  <div>
+    <div class="kicker mb-s">Functional Safety Standard</div>
+    <h1 class="h1 anim-fade-up" data-anim="fade-up">IEC 61508<br><span class="gradient-text">功能安全标准</span><br>入门指南</h1>
+    <p class="lede mt-m" style="max-width:540px;margin-left:auto;margin-right:auto">电气/电子/可编程电子安全相关系统的功能安全基础</p>
+    <div class="row mt-l" style="justify-content:center;gap:12px">
+      <span class="tag tag-accent">安全关键系统</span>
+      <span class="tag">SIL等级</span>
+      <span class="tag">风险评估</span>
+    </div>
+  </div>
+  <div class="deck-footer"><span class="mono">IEC 61508:2010</span><span class="slide-number" data-current="1" data-total="18"></span></div>
+</section>
+
+<!-- Slide 2: Agenda -->
+<section class="slide" data-title="目录">
+  <p class="kicker">Agenda</p>
+  <h2 class="h2">今天要学什么</h2>
+  <div class="grid g2 mt-l" style="gap:16px">
+    <div class="card" style="padding:18px">
+      <div class="row" style="gap:16px">
+        <span class="num-big" style="font-size:42px">01</span>
+        <div><h4 style="margin:0 0 4px">什么是功能安全</h4><p class="dim2" style="font-size:13px;margin:0">定义、背景与重要性</p></div>
+      </div>
+    </div>
+    <div class="card" style="padding:18px">
+      <div class="row" style="gap:16px">
+        <span class="num-big" style="font-size:42px">02</span>
+        <div><h4 style="margin:0 0 4px">IEC 61508标准概述</h4><p class="dim2" style="font-size:13px;margin:0">7部分结构、核心概念</p></div>
+      </div>
+    </div>
+    <div class="card" style="padding:18px">
+      <div class="row" style="gap:16px">
+        <span class="num-big" style="font-size:42px">03</span>
+        <div><h4 style="margin:0 0 4px">SIL安全完整性等级</h4><p class="dim2" style="font-size:13px;margin:0">等级划分、确定方法、应用示例</p></div>
+      </div>
+    </div>
+    <div class="card" style="padding:18px">
+      <div class="row" style="gap:16px">
+        <span class="num-big" style="font-size:42px">04</span>
+        <div><h4 style="margin:0 0 4px">功能安全生命周期</h4><p class="dim2" style="font-size:13px;margin:0">V模型、各阶段要求</p></div>
+      </div>
+    </div>
+    <div class="card" style="padding:18px">
+      <div class="row" style="gap:16px">
+        <span class="num-big" style="font-size:42px">05</span>
+        <div><h4 style="margin:0 0 4px">硬件与软件安全要求</h4><p class="dim2" style="font-size:13px;margin:0">架构约束、开发规范、测试要求</p></div>
+      </div>
+    </div>
+    <div class="card" style="padding:18px">
+      <div class="row" style="gap:16px">
+        <span class="num-big" style="font-size:42px">06</span>
+        <div><h4 style="margin:0 0 4px">认证与挑战</h4><p class="dim2" style="font-size:13px;margin:0">功能安全认证、常见问题</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="deck-footer"><span class="mono">目录概览</span><span class="slide-number" data-current="2" data-total="18"></span></div>
+</section>
+
+<!-- Slide 3: 什么是功能安全 -->
+<section class="slide" data-title="什么是功能安全">
+  <p class="kicker">// 定义</p>
+  <h2 class="h2">什么是功能安全？</h2>
+  <div class="card card-accent mt-m" style="max-width:900px">
+    <p class="lede" style="margin:0;font-size:20px"><strong style="color:var(--accent)">功能安全</strong>是指通过正确实现安全功能来避免或控制系统性故障和随机硬件故障，从而使系统在<strong style="color:#fff">可接受的风险水平</strong>下运行。</p>
+  </div>
+  <div class="grid g3 mt-l" style="align-items:start">
+    <div class="card card-good">
+      <h4>🎯 核心关注点</h4>
+      <p class="dim" style="font-size:15px;margin:8px 0 0">系统在<strong style="color:var(--text-1)">故障情况下</strong>的安全性，而非正常功能的正确性</p>
+    </div>
+    <div class="card card-warn">
+      <h4>⚠️ 防止什么</h4>
+      <ul style="margin:8px 0 0;padding-left:18px;font-size:14px">
+        <li>系统性故障（设计缺陷、软件Bug）</li>
+        <li>随机硬件故障（元件老化、损坏）</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>💡 关键目标</h4>
+      <p class="dim" style="font-size:15px;margin:8px 0 0">当系统发生故障时，能够<strong style="color:var(--text-1)">安全地</strong>进入或保持在安全状态</p>
+    </div>
+  </div>
+  <div class="deck-footer"><span class="mono">功能安全基础</span><span class="slide-number" data-current="3" data-total="18"></span></div>
+</section>
+
+<!-- Slide 4: 功能安全 vs 其他安全 -->
+<section class="slide" data-title="功能安全对比">
+  <p class="kicker">// 对比</p>
+  <h2 class="h2">功能安全 ≠ 传统安全 ≠ 信息安全</h2>
+  <div class="grid g3 mt-l" style="align-items:start">
+    <div class="compare-box vs-safety">
+      <h5>🛡️ 功能安全</h5>
+      <p>防止<strong>系统故障</strong>导致的危害<br>关注：系统自身的可靠性<br>例：压力容器超压保护系统</p>
+    </div>
+    <div class="compare-box" style="border-left-color:var(--accent-3)">
+      <h5>⚙️ 传统安全</h5>
+      <p>防止<strong>物理危害</strong>导致的伤害<br>关注：机械防护、防护设备<br>例：防护罩、急停按钮</p>
+    </div>
+    <div class="compare-box vs-security">
+      <h5>🔐 信息安全</h5>
+      <p>防止<strong>恶意攻击</strong>导致的危害<br>关注：数据保护、访问控制<br>例：防火墙、加密传输</p>
+    </div>
+  </div>
+  <div class="card mt-l" style="background:linear-gradient(135deg,var(--surface),var(--surface-2))">
+    <h4 style="color:var(--accent-2)">🔑 关键区别</h4>
+    <ul style="margin:8px 0 0;padding-left:20px;font-size:15px">
+      <li><strong style="color:var(--text-1)">功能安全</strong>关注的是"系统出故障时还能安全吗？"</li>
+      <li><strong style="color:var(--text-1)">信息安全</strong>关注的是"系统能否抵御攻击？"</li>
+      <li>两者需要<strong style="color:var(--accent)">协同考虑</strong>，现代系统中界限日益模糊</li>
+    </ul>
+  </div>
+  <div class="deck-footer"><span class="mono">概念对比</span><span class="slide-number" data-current="4" data-total="18"></span></div>
+</section>
+
+<!-- Slide 5: 为什么需要功能安全 -->
+<section class="slide" data-title="为什么需要功能安全">
+  <p class="kicker">// 历史教训</p>
+  <h2 class="h2">血的教训：为什么需要功能安全？</h2>
+  <div class="grid g2 mt-l" style="align-items:start">
+    <div class="card card-bad">
+      <h4 style="color:var(--bad)">Therac-25 放射治疗仪事故</h4>
+      <p class="dim" style="font-size:14px;margin:8px 0"><strong style="color:var(--bad)">1985-1987年</strong> · 美国/加拿大</p>
+      <ul style="margin:8px 0 0;padding-left:18px;font-size:14px">
+        <li><strong style="color:var(--text-1)">原因</strong>：软件竞争条件导致过量辐射</li>
+        <li><strong style="color:var(--text-1)">后果</strong>：6人严重辐射伤害，3人死亡</li>
+        <li><strong style="color:var(--text-1)">教训</strong>：软件需要功能安全设计</li>
+      </ul>
+    </div>
+    <div class="card card-warn">
+      <h4 style="color:var(--warn)">阿里安5号火箭爆炸</h4>
+      <p class="dim" style="font-size:14px;margin:8px 0"><strong style="color:var(--warn)">1996年</strong> · 法属圭亚那</p>
+      <ul style="margin:8px 0 0;padding-left:18px;font-size:14px">
+        <li><strong style="color:var(--text-1)">原因</strong>：软件溢出错误导致火箭自毁</li>
+        <li><strong style="color:var(--text-1)">后果</strong>：价值5亿美元火箭和卫星损毁</li>
+        <li><strong style="color:var(--text-1)">教训</strong>：电子系统需要功能安全设计</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card mt-m card-accent">
+    <h4>💡 核心启示</h4>
+    <p class="lede" style="margin:8px 0 0;font-size:18px">软件和电子系统没有"物理失效"的概念，但会有<strong style="color:var(--accent)">系统性故障</strong>，同样需要功能安全保障。</p>
+  </div>
+  <div class="deck-footer"><span class="mono">历史案例</span><span class="slide-number" data-current="5" data-total="18"></span></div>
+</section>
+
+<!-- Slide 6: IEC 61508标准概述 -->
+<section class="slide" data-title="IEC 61508标准概述">
+  <p class="kicker">// Standard Overview</p>
+  <h2 class="h2">IEC 61508 标准概述</h2>
+  <div class="card card-accent mt-m" style="max-width:800px">
+    <p class="lede" style="margin:0;font-size:18px"><strong style="color:var(--accent)">全称</strong>：电气/电子/可编程电子安全相关系统的功能安全<br>
+    <strong style="color:var(--accent)">地位</strong>：功能安全领域的<strong style="color:#fff">基础性国际标准</strong>，被多个行业标准引用</p>
+  </div>
+  <h3 class="h3 mt-l" style="font-size:24px">标准结构（7个部分）</h3>
+  <div class="grid g2 mt-m" style="gap:16px">
+    <div>
+      <div class="flow-step"><span class="n">1</span><span class="t">Part 1: 一般要求 · 基本概念、安全生命周期</span></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><span class="n">2</span><span class="t">Part 2: E/E/PE系统要求</span></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><span class="n">3</span><span class="t">Part 3: 软件要求</span></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><span class="n">4</span><span class="t">Part 4: 定义和缩写</span></div>
+    </div>
+    <div>
+      <div class="flow-step"><span class="n">5</span><span class="t">Part 5: 确定SIL等级的方法示例</span></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><span class="n">6</span><span class="t">Part 6: 应用指南</span></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><span class="n">7</span><span class="t">Part 7: 技术和措施概述</span></div>
+    </div>
+  </div>
+  <div class="deck-footer"><span class="mono">标准结构</span><span class="slide-number" data-current="6" data-total="18"></span></div>
+</section>
+
+<!-- Slide 7: 核心概念 -->
+<section class="slide" data-title="核心概念">
+  <p class="kicker">// Core Concepts</p>
+  <h2 class="h2">核心概念</h2>
+  <div class="grid g3 mt-l" style="align-items:start">
+    <div class="card card-accent">
+      <div class="num-big">01</div>
+      <h4 style="margin-top:12px">安全功能</h4>
+      <p class="dim" style="font-size:14px;margin:8px 0 0">系统为达到或保持安全状态而执行的功能。例：紧急停车、超压保护</p>
+    </div>
+    <div class="card card-good">
+      <div class="num-big" style="color:var(--good)">02</div>
+      <h4 style="margin-top:12px;color:var(--good)">安全完整性</h4>
+      <p class="dim" style="font-size:14px;margin:8px 0 0">安全功能在规定条件下和规定时间内成功实现要求功能的概率</p>
+    </div>
+    <div class="card card-warn">
+      <div class="num-big" style="color:var(--warn)">03</div>
+      <h4 style="margin-top:12px;color:var(--warn)">风险降低</h4>
+      <p class="dim" style="font-size:14px;margin:8px 0 0">通过安全相关系统将风险降低到可接受的水平</p>
+    </div>
+  </div>
+  <div class="card mt-l" style="background:linear-gradient(135deg,rgba(77,166,255,.1),rgba(109,213,199,.1));border:1px solid var(--accent)">
+    <h4 style="color:var(--accent)">🎯 风险降低公式</h4>
+    <p class="lede mono" style="margin:12px 0 0;font-size:18px;text-align:center">
+      <strong style="color:#fff">残余风险</strong> = <strong style="color:var(--accent)">原始风险</strong> − <strong style="color:var(--good)">风险降低</strong>
+    </p>
+    <p class="dim2" style="margin:12px 0 0;font-size:14px;text-align:center">安全相关系统的目标是将风险降低到<strong style="color:var(--text-1)">可容忍</strong>的水平</p>
+  </div>
+  <div class="deck-footer"><span class="mono">核心概念</span><span class="slide-number" data-current="7" data-total="18"></span></div>
+</section>
+
+<!-- Slide 8: SIL等级定义 -->
+<section class="slide" data-title="SIL等级定义">
+  <p class="kicker">// Safety Integrity Level</p>
+  <h2 class="h2">安全完整性等级 (SIL)</h2>
+  <p class="lede dim">衡量安全功能可靠性的指标，SIL 4最高，SIL 1最低</p>
+  <div class="grid g4 mt-m" style="gap:16px">
+    <div class="sil-card sil-4">
+      <h4 style="color:var(--bad)">SIL 4</h4>
+      <p class="mono" style="font-size:12px">PFD: 10⁻⁵ ~ 10⁻⁴</p>
+      <p class="mono" style="font-size:12px">PFH: 10⁻⁹ ~ 10⁻⁸</p>
+      <span class="tag tag-bad mt-s" style="font-size:11px">最高要求</span>
+    </div>
+    <div class="sil-card sil-3">
+      <h4 style="color:var(--warn)">SIL 3</h4>
+      <p class="mono" style="font-size:12px">PFD: 10⁻⁴ ~ 10⁻³</p>
+      <p class="mono" style="font-size:12px">PFH: 10⁻⁸ ~ 10⁻⁷</p>
+      <span class="tag tag-warn mt-s" style="font-size:11px">高要求</span>
+    </div>
+    <div class="sil-card sil-2">
+      <h4 style="color:var(--accent)">SIL 2</h4>
+      <p class="mono" style="font-size:12px">PFD: 10⁻³ ~ 10⁻²</p>
+      <p class="mono" style="font-size:12px">PFH: 10⁻⁷ ~ 10⁻⁶</p>
+      <span class="tag tag-accent mt-s" style="font-size:11px">中等要求</span>
+    </div>
+    <div class="sil-card sil-1">
+      <h4 style="color:var(--good)">SIL 1</h4>
+      <p class="mono" style="font-size:12px">PFD: 10⁻² ~ 10⁻¹</p>
+      <p class="mono" style="font-size:12px">PFH: 10⁻⁶ ~ 10⁻⁵</p>
+      <span class="tag tag-good mt-s" style="font-size:11px">基本要求</span>
+    </div>
+  </div>
+  <div class="grid g2 mt-m" style="gap:16px">
+    <div class="card" style="padding:16px">
+      <h4 style="font-size:15px">PFD - 平均故障概率</h4>
+      <p class="dim" style="font-size:13px;margin:6px 0 0">适用于<strong style="color:var(--text-1)">低要求模式</strong>（每年最多调用一次）</p>
+    </div>
+    <div class="card" style="padding:16px">
+      <h4 style="font-size:15px">PFH - 每小时危险故障概率</h4>
+      <p class="dim" style="font-size:13px;margin:6px 0 0">适用于<strong style="color:var(--text-1)">高要求/连续模式</strong>（频繁或持续运行）</p>
+    </div>
+  </div>
+  <div class="deck-footer"><span class="mono">SIL等级</span><span class="slide-number" data-current="8" data-total="18"></span></div>
+</section>
+
+<!-- Slide 9: SIL等级确定 -->
+<section class="slide" data-title="SIL等级确定">
+  <p class="kicker">// SIL Determination</p>
+  <h2 class="h2">如何确定SIL等级？</h2>
+  <div class="grid g2 mt-m" style="align-items:start">
+    <div class="card">
+      <h4>📊 风险矩阵法</h4>
+      <p class="dim" style="font-size:13px;margin:8px 0">严重程度 vs 发生概率</p>
+      <div class="stack mt-m" style="gap:10px">
+        <div class="row" style="gap:8px"><span class="tag tag-bad">极高风险</span><span class="dim">→ SIL 3/4</span></div>
+        <div class="row" style="gap:8px"><span class="tag tag-warn">高风险</span><span class="dim">→ SIL 2/3</span></div>
+        <div class="row" style="gap:8px"><span class="tag tag-accent">中风险</span><span class="dim">→ SIL 1/2</span></div>
+        <div class="row" style="gap:8px"><span class="tag tag-good">低风险</span><span class="dim">→ 无需SIL</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>🔢 定量风险评估</h4>
+      <p class="dim" style="font-size:13px;margin:8px 0">计算风险降低因子RRF</p>
+      <div class="mono" style="font-size:14px;background:var(--surface-2);padding:14px;border-radius:8px;margin-top:12px">
+        <div style="color:var(--accent)">RRF = R₀ / R<sub>tolerable</sub></div>
+        <div class="dim2" style="font-size:12px;margin-top:8px">R₀: 无保护时的风险率<br>R<sub>tolerable</sub>: 可容忍风险率</div>
+      </div>
+      <div class="mt-m" style="font-size:14px">
+        <p class="dim" style="margin:0 0 6px">RRF ≥ 10000 → SIL 4</p>
+        <p class="dim" style="margin:0 0 6px">RRF ≥ 1000 → SIL 3</p>
+        <p class="dim" style="margin:0 0 6px">RRF ≥ 100 → SIL 2</p>
+        <p class="dim" style="margin:0">RRF ≥ 10 → SIL 1</p>
+      </div>
+    </div>
+  </div>
+  <div class="deck-footer"><span class="mono">SIL确定方法</span><span class="slide-number" data-current="9" data-total="18"></span></div>
+</section>
+
+<!-- Slide 10: SIL应用示例 -->
+<section class="slide" data-title="SIL应用示例">
+  <p class="kicker">// Examples</p>
+  <h2 class="h2">SIL等级应用示例</h2>
+  <div class="grid g3 mt-l" style="align-items:start">
+    <div class="card card-bad">
+      <div class="tag tag-bad mb-s">SIL 3</div>
+      <h4 style="color:var(--bad)">工业压力容器保护系统</h4>
+      <ul style="margin:8px 0 0;padding-left:18px;font-size:14px">
+        <li><strong style="color:var(--text-1)">后果</strong>：爆炸可能导致多人死亡</li>
+        <li><strong style="color:var(--text-1)">暴露频率</strong>：工人经常在附近</li>
+        <li><strong style="color:var(--text-1)">避免可能性</strong>：爆炸突然，难以避免</li>
+      </ul>
+    </div>
+    <div class="card card-warn">
+      <div class="tag tag-warn mb-s">SIL 2</div>
+      <h4 style="color:var(--warn)">电梯门安全系统</h4>
+      <ul style="margin:8px 0 0;padding-left:18px;font-size:14px">
+        <li><strong style="color:var(--text-1)">后果</strong>：可能导致重伤</li>
+        <li><strong style="color:var(--text-1)">暴露频率</strong>：每天多次使用</li>
+        <li><strong style="color:var(--text-1)">避免可能性</strong>：用户可能注意到并避免</li>
+      </ul>
+    </div>
+    <div class="card card-good">
+      <div class="tag tag-good mb-s">SIL 1</div>
+      <h4 style="color:var(--good)">家用燃气灶熄火保护</h4>
+      <ul style="margin:8px 0 0;padding-left:18px;font-size:14px">
+        <li><strong style="color:var(--text-1)">后果</strong>：可能导致火灾或中毒</li>
+        <li><strong style="color:var(--text-1)">暴露频率</strong>：每天使用</li>
+        <li><strong style="color:var(--text-1)">避免可能性</strong>：用户可能闻到气味</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card mt-m" style="background:linear-gradient(135deg,rgba(77,166,255,.1),rgba(109,213,199,.05))">
+    <p class="lede" style="margin:0;font-size:16px"><strong style="color:var(--accent)">关键原则</strong>：SIL等级越高，安全功能需要达到的可靠性越高，开发和验证要求也越严格。</p>
+  </div>
+  <div class="deck-footer"><span class="mono">应用示例</span><span class="slide-number" data-current="10" data-total="18"></span></div>
+</section>
+
+<!-- Slide 11: 功能安全生命周期 -->
+<section class="slide" data-title="功能安全生命周期">
+  <p class="kicker">// Safety Lifecycle</p>
+  <h2 class="h2">功能安全生命周期</h2>
+  <p class="lede dim">IEC 61508定义的V模型，确保从概念到退役的全过程安全</p>
+  <div class="grid g2 mt-m" style="align-items:start;gap:24px">
+    <div>
+      <h4 style="color:var(--accent)">⬇️ 左侧：分析与设计</h4>
+      <div class="stack mt-s" style="gap:8px">
+        <div class="flow-step"><span class="n">1</span><span class="t">概念定义</span></div>
+        <div class="flow-step"><span class="n">2</span><span class="t">总体范围定义</span></div>
+        <div class="flow-step"><span class="n">3</span><span class="t">危害和风险分析</span></div>
+        <div class="flow-step"><span class="n">4</span><span class="t">总体安全要求</span></div>
+        <div class="flow-step"><span class="n">5</span><span class="t">安全要求分配</span></div>
+        <div class="flow-step"><span class="n">6</span><span class="t">硬件/软件设计</span></div>
+      </div>
+    </div>
+    <div>
+      <h4 style="color:var(--good)">⬆️ 右侧：实现与验证</h4>
+      <div class="stack mt-s" style="gap:8px">
+        <div class="flow-step"><span class="n" style="background:var(--good)">7</span><span class="t">硬件/软件实现</span></div>
+        <div class="flow-step"><span class="n" style="background:var(--good)">8</span><span class="t">集成和测试</span></div>
+        <div class="flow-step"><span class="n" style="background:var(--good)">9</span><span class="t">安全确认</span></div>
+        <div class="flow-step"><span class="n" style="background:var(--good)">10</span><span class="t">安装和调试</span></div>
+        <div class="flow-step"><span class="n" style="background:var(--good)">11</span><span class="t">运行和维护</span></div>
+        <div class="flow-step"><span class="n" style="background:var(--good)">12</span><span class="t">退役或处置</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="deck-footer"><span class="mono">V模型生命周期</span><span class="slide-number" data-current="11" data-total="18"></span></div>
+</section>
+
+<!-- Slide 12: 硬件安全要求 -->
+<section class="slide" data-title="硬件安全要求">
+  <p class="kicker">// Hardware Requirements</p>
+  <h2 class="h2">硬件安全要求</h2>
+  <div class="grid g2 mt-m" style="align-items:start">
+    <div class="card">
+      <h4>硬件架构约束 (HFT)</h4>
+      <p class="dim" style="font-size:13px;margin:8px 0">HFT = 硬件故障容错度</p>
+      <table style="margin-top:12px;font-size:13px">
+        <tr><th>SIL</th><th>类型A</th><th>类型B</th></tr>
+        <tr><td><span class="tag tag-bad" style="font-size:11px">SIL 4</span></td><td>不允许</td><td>HFT ≥ 1</td></tr>
+        <tr><td><span class="tag tag-warn" style="font-size:11px">SIL 3</span></td><td>HFT ≥ 1</td><td>HFT ≥ 1</td></tr>
+        <tr><td><span class="tag tag-accent" style="font-size:11px">SIL 2</span></td><td>HFT ≥ 0</td><td>HFT ≥ 1</td></tr>
+        <tr><td><span class="tag tag-good" style="font-size:11px">SIL 1</span></td><td>HFT ≥ 0</td><td>HFT ≥ 0</td></tr>
+      </table>
+      <p class="dim2" style="font-size:12px;margin-top:12px">类型A: 故障模式明确<br>类型B: 故障模式不明确(如复杂IC)</p>
+    </div>
+    <div class="card">
+      <h4>安全失效分数 (SFF)</h4>
+      <div class="mono" style="font-size:13px;background:var(--surface-2);padding:12px;border-radius:8px;margin-top:8px">
+        SFF = (λS + λDD) / (λS + λDD + λDU)
+      </div>
+      <ul style="margin:12px 0 0;padding-left:18px;font-size:13px">
+        <li><strong style="color:var(--text-1)">λS</strong>: 安全失效率</li>
+        <li><strong style="color:var(--text-1)">λDD</strong>: 检测到的危险失效率</li>
+        <li><strong style="color:var(--text-1)">λDU</strong>: 未检测到的危险失效率</li>
+      </ul>
+      <div class="stack mt-m" style="gap:8px">
+        <div class="row" style="gap:8px;font-size:13px"><span class="tag tag-bad" style="font-size:11px">SIL 3</span><span class="dim">HFT=0需SFF≥99%</span></div>
+        <div class="row" style="gap:8px;font-size:13px"><span class="tag tag-accent" style="font-size:11px">SIL 2</span><span class="dim">HFT=0需SFF≥90%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="card mt-m" style="padding:16px">
+    <h4 style="font-size:15px">🔧 硬件设计技术</h4>
+    <div class="row wrap mt-s" style="gap:8px">
+      <span class="tag">冗余设计</span>
+      <span class="tag">多样性设计</span>
+      <span class="tag">故障检测</span>
+      <span class="tag">诊断覆盖</span>
+      <span class="tag">降额设计</span>
+    </div>
+  </div>
+  <div class="deck-footer"><span class="mono">硬件要求</span><span class="slide-number" data-current="12" data-total="18"></span></div>
+</section>
+
+<!-- Slide 13: 软件安全要求 -->
+<section class="slide" data-title="软件安全要求">
+  <p class="kicker">// Software Requirements</p>
+  <h2 class="h2">软件安全要求</h2>
+  <div class="card card-warn mt-m" style="max-width:700px">
+    <p class="lede" style="margin:0;font-size:17px"><strong style="color:var(--warn)">关键认知</strong>：软件不会随机失效，但会有<strong style="color:#fff">系统性故障</strong>。不能通过冗余提高SIL等级，必须通过开发过程保证质量。</p>
+  </div>
+  <div class="grid g2 mt-m" style="align-items:start">
+    <div class="card">
+      <h4>📋 开发方法要求</h4>
+      <table style="font-size:13px;margin-top:10px">
+        <tr><th>技术</th><th>SIL1</th><th>SIL2</th><th>SIL3/4</th></tr>
+        <tr><td>结构化方法</td><td style="color:var(--good)">HR</td><td style="color:var(--good)">HR</td><td style="color:var(--good)">HR</td></tr>
+        <tr><td>半形式化方法</td><td style="color:var(--accent)">R</td><td style="color:var(--good)">HR</td><td style="color:var(--good)">HR</td></tr>
+        <tr><td>形式化方法</td><td>-</td><td style="color:var(--accent)">R</td><td style="color:var(--good)">HR</td></tr>
+      </table>
+      <p class="dim2" style="font-size:11px;margin-top:8px">HR=强烈推荐 R=推荐</p>
+    </div>
+    <div class="card">
+      <h4>🧪 测试覆盖率要求</h4>
+      <table style="font-size:13px;margin-top:10px">
+        <tr><th>覆盖类型</th><th>SIL1</th><th>SIL2</th><th>SIL3/4</th></tr>
+        <tr><td>语句覆盖</td><td style="color:var(--good)">HR</td><td style="color:var(--good)">HR</td><td style="color:var(--good)">HR</td></tr>
+        <tr><td>分支覆盖</td><td style="color:var(--accent)">R</td><td style="color:var(--good)">HR</td><td style="color:var(--good)">HR</td></tr>
+        <tr><td>MC/DC覆盖</td><td>-</td><td style="color:var(--accent)">R</td><td style="color:var(--good)">HR</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="card mt-m">
+    <h4>📝 MISRA C 编码规范要点</h4>
+    <div class="row wrap mt-s" style="gap:10px">
+      <span class="tag tag-bad">禁止动态内存分配</span>
+      <span class="tag tag-warn">限制函数复杂度 ≤10</span>
+      <span class="tag tag-warn">禁止递归</span>
+      <span class="tag tag-accent">强制类型转换检查</span>
+    </div>
+  </div>
+  <div class="deck-footer"><span class="mono">软件要求</span><span class="slide-number" data-current="13" data-total="18"></span></div>
+</section>
+
+<!-- Slide 14: 功能安全管理 -->
+<section class="slide" data-title="功能安全管理">
+  <p class="kicker">// Safety Management</p>
+  <h2 class="h2">功能安全管理</h2>
+  <div class="grid g4 mt-m" style="gap:16px">
+    <div class="card" style="text-align:center">
+      <div style="font-size:40px;margin-bottom:12px">🎯</div>
+      <h4>安全文化</h4>
+      <p class="dim" style="font-size:13px;margin:8px 0 0">建立安全意识<br>全员参与安全</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:40px;margin-bottom:12px">👥</div>
+      <h4>人员能力</h4>
+      <p class="dim" style="font-size:13px;margin:8px 0 0">培训和资质要求<br>职责明确分工</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:40px;margin-bottom:12px">📋</div>
+      <h4>质量管理</h4>
+      <p class="dim" style="font-size:13px;margin:8px 0 0">配置管理<br>变更管理</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:40px;margin-bottom:12px">📝</div>
+      <h4>安全计划</h4>
+      <p class="dim" style="font-size:13px;margin:8px 0 0">功能安全计划<br>验证/确认计划</p>
+    </div>
+  </div>
+  <div class="card mt-l">
+    <h4 style="color:var(--accent)">🔑 功能安全 vs 网络安全 协同</h4>
+    <div class="grid g2 mt-m" style="gap:16px">
+      <div class="compare-box vs-safety">
+        <h5>功能安全</h5>
+        <p style="font-size:13px">防止系统故障导致的危害<br>关注可靠性和容错</p>
+      </div>
+      <div class="compare-box vs-security">
+        <h5>网络安全</h5>
+        <p style="font-size:13px">防止恶意攻击导致的危害<br>关注访问控制和加密</p>
+      </div>
+    </div>
+    <p class="lede" style="margin:12px 0 0;font-size:15px;text-align:center">现代系统中，两者需要<strong style="color:var(--accent)">协同考虑</strong>，形成完整的安全保障体系</p>
+  </div>
+  <div class="deck-footer"><span class="mono">安全管理</span><span class="slide-number" data-current="14" data-total="18"></span></div>
+</section>
+
+<!-- Slide 15: 功能安全认证 -->
+<section class="slide" data-title="功能安全认证">
+  <p class="kicker">// Certification</p>
+  <h2 class="h2">功能安全认证</h2>
+  <div class="grid g2 mt-m" style="align-items:start">
+    <div>
+      <div class="card">
+        <h4>🏛️ 认证机构</h4>
+        <div class="stack mt-s" style="gap:10px">
+          <div class="row" style="gap:12px">
+            <span class="tag tag-accent">TÜV</span>
+            <span class="dim" style="font-size:13px">德国技术监督协会</span>
+          </div>
+          <div class="row" style="gap:12px">
+            <span class="tag tag-accent">SGS</span>
+            <span class="dim" style="font-size:13px">瑞士通用公证行</span>
+          </div>
+          <div class="row" style="gap:12px">
+            <span class="tag tag-accent">BV</span>
+            <span class="dim" style="font-size:13px">法国船级社</span>
+          </div>
+        </div>
+      </div>
+      <div class="card mt-m">
+        <h4>⚠️ 认证性质</h4>
+        <p class="dim" style="font-size:14px;margin:8px 0 0">功能安全认证<strong style="color:var(--text-1)">不是强制性要求</strong>，但很多行业和市场要求具备认证</p>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h4>📊 认证流程</h4>
+        <div class="stack mt-s" style="gap:8px">
+          <div class="flow-step"><span class="n" style="background:var(--accent)">1</span><span class="t">评估申请</span></div>
+          <div class="flow-step"><span class="n" style="background:var(--accent)">2</span><span class="t">文档审核</span></div>
+          <div class="flow-step"><span class="n" style="background:var(--accent)">3</span><span class="t">现场审核</span></div>
+          <div class="flow-step"><span class="n" style="background:var(--accent)">4</span><span class="t">测试验证</span></div>
+          <div class="flow-step"><span class="n" style="background:var(--good)">5</span><span class="t">颁发证书</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="deck-footer"><span class="mono">认证流程</span><span class="slide-number" data-current="15" data-total="18"></span></div>
+</section>
+
+<!-- Slide 16: 功能安全挑战 -->
+<section class="slide" data-title="功能安全挑战">
+  <p class="kicker">// Challenges</p>
+  <h2 class="h2">功能安全面临的挑战</h2>
+  <div class="grid g3 mt-l" style="gap:20px">
+    <div class="card card-bad">
+      <div style="font-size:32px;margin-bottom:10px">💰</div>
+      <h4 style="color:var(--bad)">成本高昂</h4>
+      <p class="dim" style="font-size:14px;margin:8px 0 0">开发周期长、文档工作量大、需要专业团队</p>
+    </div>
+    <div class="card card-warn">
+      <div style="font-size:32px;margin-bottom:10px">🔧</div>
+      <h4 style="color:var(--warn)">技术复杂性</h4>
+      <p class="dim" style="font-size:14px;margin:8px 0 0">标准要求多、验证方法复杂、需要多学科知识</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent)">
+      <div style="font-size:32px;margin-bottom:10px">📖</div>
+      <h4 style="color:var(--accent)">标准理解困难</h4>
+      <p class="dim" style="font-size:14px;margin:8px 0 0">标准文本抽象、解释空间大、需要实践经验</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent-2)">
+      <div style="font-size:32px;margin-bottom:10px">🔄</div>
+      <h4 style="color:var(--accent-2)">与敏捷开发冲突</h4>
+      <p class="dim" style="font-size:14px;margin:8px 0 0">传统V模型vs敏捷迭代、文档要求vs快速交付</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent-3)">
+      <div style="font-size:32px;margin-bottom:10px">🏭</div>
+      <h4 style="color:var(--accent-3)">供应链管理</h4>
+      <p class="dim" style="font-size:14px;margin:8px 0 0">第三方组件验证、供应商资质管理、工具链确认</p>
+    </div>
+  </div>
+  <div class="deck-footer"><span class="mono">挑战与困难</span><span class="slide-number" data-current="16" data-total="18"></span></div>
+</section>
+
+<!-- Slide 17: 常见问题 -->
+<section class="slide" data-title="常见问题">
+  <p class="kicker">// FAQ</p>
+  <h2 class="h2">常见问题解答</h2>
+  <div class="grid g2 mt-m" style="align-items:start;gap:24px">
+    <div>
+      <div class="faq-q">Q1: 功能安全和质量管理有什么区别？</div>
+      <div class="faq-a">功能安全关注系统故障情况下的安全性，质量管理关注产品整体质量。功能安全需要更严格的风险分析和验证。</div>
+
+      <div class="faq-q">Q2: 如何确定系统需要达到哪个SIL等级？</div>
+      <div class="faq-a">通过风险评估确定，考虑危害后果严重程度、暴露频率、避免可能性等因素。可使用风险矩阵或定量方法。</div>
+
+      <div class="faq-q">Q3: 软件可以通过冗余提高SIL等级吗？</div>
+      <div class="faq-a"><strong style="color:var(--bad)">不能</strong>。软件是类型B系统，只能通过开发过程保证质量，冗余无法消除系统性故障。</div>
+    </div>
+    <div>
+      <div class="faq-q">Q4: 如何在敏捷开发中实施功能安全？</div>
+      <div class="faq-a">采用"敏捷+V模型"混合方式，将安全活动嵌入迭代周期，使用自动化工具提高效率，保持必要的文档和追溯。</div>
+
+      <div class="faq-q">Q5: 功能安全认证是强制的吗？</div>
+      <div class="faq-a">法律上<strong style="color:var(--text-1)">不强制</strong>，但很多行业标准（如汽车ISO 26262）要求认证，市场准入也可能要求。</div>
+    </div>
+  </div>
+  <div class="deck-footer"><span class="mono">FAQ</span><span class="slide-number" data-current="17" data-total="18"></span></div>
+</section>
+
+<!-- Slide 18: 总结与参考 -->
+<section class="slide" data-title="总结">
+  <p class="kicker">// Summary</p>
+  <h2 class="h2">总结与要点回顾</h2>
+  <div class="grid g3 mt-m" style="gap:16px">
+    <div class="card card-accent">
+      <h4>🎯 核心理解</h4>
+      <ul style="margin:8px 0 0;padding-left:18px;font-size:14px">
+        <li>功能安全关注故障下的安全</li>
+        <li>IEC 61508是基础性标准</li>
+        <li>SIL等级衡量安全可靠性</li>
+      </ul>
+    </div>
+    <div class="card card-good">
+      <h4>✅ 实施要点</h4>
+      <ul style="margin:8px 0 0;padding-left:18px;font-size:14px">
+        <li>遵循安全生命周期</li>
+        <li>硬件关注架构约束和SFF</li>
+        <li>软件关注开发过程质量</li>
+      </ul>
+    </div>
+    <div class="card card-warn">
+      <h4>⚠️ 注意事项</h4>
+      <ul style="margin:8px 0 0;padding-left:18px;font-size:14px">
+        <li>软件不能通过冗余提高SIL</li>
+        <li>与网络安全协同考虑</li>
+        <li>认证非强制但行业常要求</li>
+      </ul>
+    </div>
+  </div>
+  <h4 class="mt-l" style="color:var(--accent)">📚 参考资料</h4>
+  <div class="grid g2 mt-s" style="gap:12px">
+    <div class="ref-link">
+      <div class="icon">IEC</div>
+      <div class="info">
+        <p class="title">IEC 61508:2010 标准</p>
+        <p class="desc">国际电工委员会功能安全基础标准</p>
+      </div>
+    </div>
+    <div class="ref-link">
+      <div class="icon" style="background:var(--good)">GB</div>
+      <div class="info">
+        <p class="title">GB/T 20438-2006 国标</p>
+        <p class="desc">中国国家标准，等同采用IEC 61508</p>
+      </div>
+    </div>
+  </div>
+  <div class="deck-footer"><span class="mono">参考资料</span><span class="slide-number" data-current="18" data-total="18"></span></div>
+</section>
+
+</div>
+<script src="C:/Users/stone/.claude/skills/html-ppt-skill-main/assets/runtime.js"></script>
+</body>
+</html>
